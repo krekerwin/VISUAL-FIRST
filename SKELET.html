@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual-first</title>
+    <link rel="stylesheet" href="design.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <img src="Visuallogo.png" alt="Logo" class="logo-img" />
+          <span class="logo-text">Visual First</span>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search works..."
+            class="search-input"
+          />
+        </div>
+        <button id="favoritesBtn" class="favorites-btn">♡ Favorites</button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+      <!-- Upload Section -->
+      <section class="upload-section">
+        <button id="uploadBtn" class="upload-btn">+ Upload Work</button>
+      </section>
+
+      <!-- Upload Modal -->
+      <div id="uploadModal" class="modal upload-modal">
+        <div class="modal-content upload-modal-content">
+          <button class="close-btn" id="closeUploadBtn">&times;</button>
+          <h2>Upload Your Work</h2>
+
+          <form id="uploadForm" class="upload-form">
+            <div class="upload-form-container">
+              <!-- Left Side: Image Upload & Preview -->
+              <div class="upload-form-left">
+                <div class="image-upload-section">
+                  <label for="imageInput" class="image-label">
+                    <div class="image-placeholder" id="imagePlaceholder">
+                      <svg
+                        width="60"
+                        height="60"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                      >
+                        <rect
+                          x="3"
+                          y="3"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                      </svg>
+                      <span>Click to upload image</span>
+                    </div>
+                    <img
+                      id="imagePreview"
+                      class="image-preview"
+                      style="display: none"
+                    />
+                  </label>
+                  <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                    required
+                    style="display: none"
+                  />
+                  <small class="image-info">JPG, PNG, GIF, WebP</small>
+                </div>
+              </div>
+
+              <!-- Right Side: Form Fields -->
+              <div class="upload-form-right">
+                <div class="form-group">
+                  <label for="titleInput">Work Title</label>
+                  <input
+                    type="text"
+                    id="titleInput"
+                    placeholder="E.g., Modern Website Design"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="descriptionInput">Description</label>
+                  <textarea
+                    id="descriptionInput"
+                    placeholder="Describe your work..."
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Tags</label>
+                  <div class="tag-selector">
+                    <input
+                      type="text"
+                      id="tagSearchInput"
+                      placeholder="Search tags..."
+                      class="tag-search-input"
+                    />
+                    <div class="available-tags" id="availableTags">
+                      <!-- Tags will be populated by JavaScript -->
+                    </div>
+                  </div>
+                  <div class="selected-tags-container">
+                    <label class="selected-tags-label">Selected Tags:</label>
+                    <div class="selected-tags" id="selectedTags">
+                      <!-- Selected tags will appear here -->
+                    </div>
+                    <input type="hidden" id="tagsInput" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="authorInput">Author Name</label>
+                  <input
+                    type="text"
+                    id="authorInput"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="instagramInput">Instagram Profile URL</label>
+                  <input
+                    type="url"
+                    id="instagramInput"
+                    placeholder="https://instagram.com/yourprofile"
+                  />
+                </div>
+
+                <button type="submit" class="submit-btn">Upload Work</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Filter Section -->
+      <section class="filter-section">
+        <div class="tags-container" id="tagsContainer">
+          <!-- Tags will be dynamically added here -->
+        </div>
+      </section>
+
+      <!-- Portfolio Grid -->
+      <section class="portfolio-grid" id="portfolioGrid">
+        <!-- Works will be dynamically added here -->
+      </section>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <svg
+          width="80"
+          height="80"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <h3>No works yet</h3>
+        <p>Upload your first work to get started</p>
+      </div>
+    </main>
+
+    <!-- Work Modal -->
+    <div id="workModal" class="modal work-modal">
+      <div class="modal-content work-modal-content">
+        <button class="close-btn" id="closeWorkBtn">&times;</button>
+
+        <div class="work-modal-body">
+          <div class="work-image-container">
+            <img id="modalImage" src="" alt="Work" class="work-image" />
+          </div>
+
+          <div class="work-info">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+
+            <div class="tags-section">
+              <h4>Tags</h4>
+              <div id="modalTags" class="tag-list"></div>
+            </div>
+
+            <div class="author-section">
+              <h4>Author</h4>
+              <p id="modalAuthor"></p>
+            </div>
+
+            <div class="modal-actions">
+              <button class="action-btn contact-btn">Contact Author</button>
+              <button class="action-btn favorite-btn">♡ Favorite</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div id="favoritesModal" class="modal favorites-modal">
+      <div class="modal-content favorites-modal-content">
+        <button class="close-btn" id="closeFavoritesBtn">&times;</button>
+        <h2>Favorite Artists</h2>
+
+        <div id="favoritesList" class="favorites-list">
+          <!-- Favorite artists will be displayed here -->
+        </div>
+
+        <div class="favorites-empty" id="favoritesEmpty">
+          <p>No favorite artists yet</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="animation.js"></script>
+  </body>
+</html>
